@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "827530244409",
+    "project_id": "bikersapp-adc9e",
+    "storage_bucket": "bikersapp-adc9e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827530244409:android:66e58093aa247c08ee78e8",
+        "android_client_info": {
+          "package_name": "com.twon.bikerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827530244409-77i53ct0jj0lgbrgookf2hsskitq6cn7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.twon.bikerapp",
+            "certificate_hash": "a7810fba47ddb90917eaf0f85187286ada97b25a"
+          }
+        },
+        {
+          "client_id": "827530244409-oth772r63sl73dbv2m3461pqa100lsf9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBILhVZOQH-s-z0H4FG01D2Ajb-zw9iQTQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827530244409-oth772r63sl73dbv2m3461pqa100lsf9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "827530244409-6hj7l0el3qlhcejftenj4niacj6grb3e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.twon.bikerapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

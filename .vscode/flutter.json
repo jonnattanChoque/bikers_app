@@ -1,0 +1,17 @@
+{
+  "New Feature (Clean Architecture)": {
+    "prefix": "newfeature",
+    "body": [
+      "mkdir -p lib/features/${1:feature}/domain/entities",
+      "mkdir -p lib/features/${1:feature}/domain/repositories",
+      "mkdir -p lib/features/${1:feature}/domain/usecases",
+      "mkdir -p lib/features/${1:feature}/data/datasources",
+      "mkdir -p lib/features/${1:feature}/data/models",
+      "mkdir -p lib/features/${1:feature}/data/repositories_impl",
+      "mkdir -p lib/features/${1:feature}/presentation/blocs",
+      "mkdir -p lib/features/${1:feature}/presentation/pages",
+      "mkdir -p lib/features/${1:feature}/presentation/widgets"
+    ],
+    "description": "Crea la estructura base de un feature con Clean Architecture"
+  }
+}
