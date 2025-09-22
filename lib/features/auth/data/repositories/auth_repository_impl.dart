@@ -20,6 +20,12 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
+  Future<User?> getLocalUser() async {
+    var userLocal = await localService.getUser();
+    return userLocal?.toEntity();
+  }
+
+  @override
   Future<User> login(AuthCredentials credentials) async {
     try {
       // Llamada a Firebase

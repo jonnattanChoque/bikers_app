@@ -146,6 +146,7 @@ class AuthViewModel extends ChangeNotifier {
         text: LoginStrings.loginSuccess,
         type: MessageType.success,
         icon: Icons.check_circle,
+        flowType: MessageFlowType.login
       ));
       notifyListeners();
     } catch (e) {
@@ -169,6 +170,7 @@ class AuthViewModel extends ChangeNotifier {
         text: LoginStrings.loginSuccess,
         type: MessageType.success,
         icon: Icons.check_circle,
+        flowType: MessageFlowType.login
       ));
       notifyListeners();
     } catch (e) {

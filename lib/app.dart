@@ -1,4 +1,7 @@
+import 'package:bikers_app/app_routes.dart';
 import 'package:bikers_app/core/theme/app_themes.dart';
+import 'package:bikers_app/features/home/presentation/pages/home_page.dart';
+import 'package:bikers_app/features/splash/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bikers_app/core/provider/theme_provider.dart';
@@ -22,9 +25,11 @@ class MyApp extends StatelessWidget {
               : themeProvider.themeMode,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      initialRoute: '/login',
+      initialRoute: AppRoutes.splash,
       routes: {
-        '/login': (context) => LoginPage(),
+        AppRoutes.splash: (_) => const SplashPage(),
+        AppRoutes.home: (_) => const HomePage(),
+        AppRoutes.login: (_) => LoginPage(),
       },
       onUnknownRoute: (settings) =>
           MaterialPageRoute(builder: (_) => LoginPage()),

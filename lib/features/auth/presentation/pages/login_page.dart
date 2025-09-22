@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bikers_app/app_routes.dart';
 import 'package:bikers_app/core/extensions/text_style_extension.dart';
 import 'package:bikers_app/core/ui/helpers/custom_snackbar.dart';
 import 'package:bikers_app/core/i18n/strings.dart';
@@ -36,6 +37,9 @@ class LoginPage extends StatelessWidget {
                 icon: vm.message!.icon,
                 top: false
               );
+              if (vm.message!.type == MessageType.success) {
+                Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+              }
               vm.clearMessage();
             }
           });
@@ -149,7 +153,7 @@ class LoginPage extends StatelessWidget {
                   if (vm.isLoading)
                   Positioned.fill(
                     child: Container(
-                      color: Theme.of(context).colorScheme.surfaceContainer.withOpacity(0.5),
+                      color: Theme.of(context).colorScheme.surfaceContainer.withAlpha(8),
                       child: Center(
                         child: CircularProgressIndicator(),
                       ),
