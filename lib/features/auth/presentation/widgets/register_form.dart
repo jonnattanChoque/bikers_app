@@ -1,3 +1,4 @@
+import 'package:bikers_app/app_routes.dart';
 import 'package:bikers_app/core/i18n/strings.dart';
 import 'package:bikers_app/core/ui/helpers/custom_snackbar.dart';
 import 'package:bikers_app/core/ui/viewmodels/view_message.dart';
@@ -48,6 +49,9 @@ class _RegisterFormState extends State<RegisterForm> {
                 icon: vm.message!.icon,
                 top: false
               );
+              if (vm.message!.type == MessageType.success) {
+                Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+              }
               vm.clearMessage();
             }
           });
