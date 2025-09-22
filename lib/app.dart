@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:bikers_app/core/provider/theme_provider.dart';
 import 'features/auth/presentation/pages/login_page.dart';
 
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -12,6 +14,7 @@ class MyApp extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return MaterialApp(
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
       title: 'BikerApp',
       debugShowCheckedModeBanner: false,
       themeMode: themeProvider.useSystemTheme

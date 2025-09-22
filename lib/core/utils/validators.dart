@@ -13,4 +13,10 @@ class Validators {
     if (password.length < 6) return LoginStrings.errorShortPassword;
     return null;
   }
+
+  static String? validateUsername(String username) {
+    if (username.isEmpty) return RegisterStrings.errorInvalidUsername;
+    if (username.length < 3) return RegisterStrings.errorShortUsername;
+    return null;
+  }
 }

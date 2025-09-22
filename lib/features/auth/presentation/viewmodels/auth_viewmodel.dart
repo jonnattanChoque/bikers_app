@@ -42,12 +42,25 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _validateForm(String email, String password) {
+  bool _validateFormLogin({required String email, required String password}) {
     _error = Validators.validateEmail(email) ?? Validators.validatePassword(password);
     showMessage(ViewMessage(
         text: _error ?? "",
         type: MessageType.error,
         icon: Icons.error,
+        flowType: MessageFlowType.login
+      ));
+    notifyListeners();
+    return _error == null;
+  }
+
+  bool _validateFormRegister({required String email, required String password, String? username}) {
+    _error = Validators.validateUsername(username ?? "") ?? Validators.validateEmail(email) ?? Validators.validatePassword(password);
+    showMessage(ViewMessage(
+        text: _error ?? "",
+        type: MessageType.error,
+        icon: Icons.error,
+        flowType: MessageFlowType.register
       ));
     notifyListeners();
     return _error == null;
@@ -69,7 +82,7 @@ class AuthViewModel extends ChangeNotifier {
 
   // Login con email
   Future<void> login(String email, String password) async {
-    if (!_validateForm(email, password)) return;
+    if (!_validateFormLogin(email: email, password: password)) return;
     _setLoading(true);
     try {
       final loggedUser = await loginUseCase.execute(
@@ -80,6 +93,7 @@ class AuthViewModel extends ChangeNotifier {
         text: LoginStrings.loginSuccess,
         type: MessageType.success,
         icon: Icons.check_circle,
+        flowType: MessageFlowType.login
       ));
       notifyListeners();
     } catch (e) {
@@ -87,6 +101,7 @@ class AuthViewModel extends ChangeNotifier {
         text: 'Error: ${e.toString()}',
         type: MessageType.error,
         icon: Icons.error,
+        flowType: MessageFlowType.login
       ));
     } finally {
       _setLoading(false);
@@ -95,7 +110,7 @@ class AuthViewModel extends ChangeNotifier {
 
   // Registro con email
   Future<void> register(String email, String password, String username) async {
-    if (!_validateForm(email, password)) return;
+    if (!_validateFormRegister(email: email, password: password, username: username)) return;
     _setLoading(true);
     try {
       final registerUser = await registerUseCase.execute(
@@ -106,6 +121,7 @@ class AuthViewModel extends ChangeNotifier {
         text: RegisterStrings.successEmail,
         type: MessageType.success,
         icon: Icons.check_circle,
+        flowType: MessageFlowType.register
       ));
       notifyListeners();
     } catch (e) {
@@ -113,6 +129,7 @@ class AuthViewModel extends ChangeNotifier {
         text: 'Error: ${e.toString()}',
         type: MessageType.error,
         icon: Icons.error,
+        flowType: MessageFlowType.register
       ));
     } finally {
       _setLoading(false);

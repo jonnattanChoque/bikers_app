@@ -19,32 +19,26 @@ import 'features/auth/presentation/viewmodels/auth_viewmodel.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 1️⃣ Inicializar Firebase
   await Firebase.initializeApp();
-
-  // 2️⃣ Inicializar Hive
+  
   await Hive.initFlutter();
   Hive.registerAdapter(UserHiveModelAdapter());
-
-  // 3️⃣ Crear servicios
+  
   final firebaseService = FirebaseAuthService();
   final localUserService = LocalUserService();
   final biometricService = BiometricService();
-
-  // 4️⃣ Crear repositorio
+  
   final authRepository = AuthRepositoryImpl(
     localService: localUserService,
     biometricService: biometricService, 
     firebaseAuthService: firebaseService,
   );
 
-  // 5️⃣ Crear use cases
   final loginUseCase = LoginUseCase(authRepository);
   final registerUseCase = RegisterUseCase(authRepository);
   final logoutUseCase = LogoutUseCase(authRepository);
   final socialUserCase = SocialLoginUseCase(authRepository);
-
-  // 6️⃣ Ejecutar App con Provider
+  
   runApp(
     MultiProvider(
       providers: [
