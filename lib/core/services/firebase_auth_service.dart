@@ -77,7 +77,6 @@ class FirebaseAuthService {
   Future<User?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      print("cuatro");
       if (googleUser == null) throw ("cancelled_by_user");
 
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
@@ -94,8 +93,6 @@ class FirebaseAuthService {
       );
       return result.user;
     } on FirebaseAuthException catch (e) {
-      print("cinco");
-      print(e);
       throw Exception(e.code);
     }
   }

@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:bikers_app/core/extensions/text_style_extension.dart';
 import 'package:bikers_app/core/ui/helpers/custom_snackbar.dart';
 import 'package:bikers_app/core/i18n/strings.dart';
+import 'package:bikers_app/core/ui/viewmodels/view_message.dart';
+import 'package:bikers_app/core/ui/widgets/custom_bottom_sheet.dart';
 import 'package:bikers_app/core/ui/widgets/social_button.dart';
+import 'package:bikers_app/features/auth/presentation/widgets/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/auth_viewmodel.dart';
@@ -14,8 +17,6 @@ class LoginPage extends StatelessWidget {
   final FocusNode emailFocus = FocusNode();
   final FocusNode passwordFocus = FocusNode();
   
-  // bool _obscurePassword = true;
-
   LoginPage({super.key});
 
   @override
@@ -27,12 +28,13 @@ class LoginPage extends StatelessWidget {
       child: Consumer<AuthViewModel>(
         builder: (context, vm, _) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (vm.message != null) {
+            if (vm.message != null && vm.message?.flowType == MessageFlowType.login) {
               CustomSnackBar.show(
                 context,
                 message: vm.message!.text,
                 type: vm.message!.type,
                 icon: vm.message!.icon,
+                top: false
               );
               vm.clearMessage();
             }
@@ -136,10 +138,10 @@ class LoginPage extends StatelessWidget {
                               onPressed: () => vm.isLoading ? null : vm.loginWithApple(),
                             ),
                           const SizedBox(height: 24),
-                          // TextButton(
-                          //   onPressed: () => showRegisterSheet(context),
-                          //   child: Text(LoginStrings.registerLink, style: Theme.of(context).textTheme.bodyLarge?.link),
-                          // ),
+                          TextButton(
+                            onPressed: () => showCustomBottomSheet(context, const RegisterForm()),
+                            child: Text(LoginStrings.registerLink, style: Theme.of(context).textTheme.bodyLarge?.link),
+                          ),
                         ],
                       ),
                     ),

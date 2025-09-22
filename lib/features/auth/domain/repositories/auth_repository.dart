@@ -37,7 +37,6 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<User> signInWithGoogle() async {
-    print("tres");
     final fb.User? fbUser = await service.signInWithGoogle();
 
     if (fbUser == null) {
