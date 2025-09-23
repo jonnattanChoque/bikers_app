@@ -1,7 +1,6 @@
 import 'package:bikers_app/core/i18n/strings.dart';
 import 'package:bikers_app/core/ui/helpers/custom_snackbar.dart';
 import 'package:bikers_app/core/ui/viewmodels/view_message.dart';
-import 'package:bikers_app/core/utils/validators.dart';
 import 'package:bikers_app/features/auth/domain/usecases/social_login_usercase.dart';
 import 'package:flutter/material.dart';
 import '../../domain/entities/auth_credentials.dart';
@@ -35,35 +34,15 @@ class AuthViewModel extends ChangeNotifier {
   ViewMessage? get message => _message;
 
   bool obscurePassword = false;
-  String? _error;
 
   void _setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
   }
 
-  bool _validateFormLogin({required String email, required String password}) {
-    _error = Validators.validateEmail(email) ?? Validators.validatePassword(password);
-    showMessage(ViewMessage(
-        text: _error ?? "",
-        type: MessageType.error,
-        icon: Icons.error,
-        flowType: MessageFlowType.login
-      ));
+  void setUser(User? value) {
+    _user = value;
     notifyListeners();
-    return _error == null;
-  }
-
-  bool _validateFormRegister({required String email, required String password, String? username}) {
-    _error = Validators.validateUsername(username ?? "") ?? Validators.validateEmail(email) ?? Validators.validatePassword(password);
-    showMessage(ViewMessage(
-        text: _error ?? "",
-        type: MessageType.error,
-        icon: Icons.error,
-        flowType: MessageFlowType.register
-      ));
-    notifyListeners();
-    return _error == null;
   }
 
   void showMessage(ViewMessage message) {
@@ -82,13 +61,12 @@ class AuthViewModel extends ChangeNotifier {
 
   // Login con email
   Future<void> login(String email, String password) async {
-    if (!_validateFormLogin(email: email, password: password)) return;
     _setLoading(true);
     try {
       final loggedUser = await loginUseCase.execute(
         AuthCredentials(email: email, password: password),
       );
-      _user = loggedUser;
+      setUser(loggedUser);
       showMessage(ViewMessage(
         text: LoginStrings.loginSuccess,
         type: MessageType.success,
@@ -110,13 +88,12 @@ class AuthViewModel extends ChangeNotifier {
 
   // Registro con email
   Future<void> register(String email, String password, String username) async {
-    if (!_validateFormRegister(email: email, password: password, username: username)) return;
     _setLoading(true);
     try {
       final registerUser = await registerUseCase.execute(
         AuthCredentials(email: email, password: password), username
       );
-      _user = registerUser;
+      setUser(registerUser);
       showMessage(ViewMessage(
         text: RegisterStrings.successEmail,
         type: MessageType.success,
@@ -141,7 +118,7 @@ class AuthViewModel extends ChangeNotifier {
     _setLoading(true);
     try {
       final loggedUser = await googleLoginUseCase.execute(SocialPlatform.google);
-      _user = loggedUser;
+      setUser(loggedUser);
       showMessage(ViewMessage(
         text: LoginStrings.loginSuccess,
         type: MessageType.success,
@@ -165,7 +142,7 @@ class AuthViewModel extends ChangeNotifier {
     _setLoading(true);
     try {
       final loggedUser = await appleLoginUseCase.execute(SocialPlatform.apple);
-      _user = loggedUser;
+      setUser(loggedUser);
       showMessage(ViewMessage(
         text: LoginStrings.loginSuccess,
         type: MessageType.success,

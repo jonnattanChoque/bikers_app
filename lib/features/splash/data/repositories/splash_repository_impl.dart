@@ -8,7 +8,7 @@ class SplashRepositoryImpl implements SplashRepository {
   SplashRepositoryImpl(this.authRepository);
 
   @override
-  Future<User?> getLocalUser() async {
+  Future<User?> execute() async {
     return await authRepository.getLocalUser();
   }
 }

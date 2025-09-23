@@ -14,6 +14,9 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+    final splashVM = context.read<SplashViewModel>();
+    splashVM.init();
+    
     return Consumer<SplashViewModel>(
       builder: (context, auth, _) {
         if (auth.state != SplashState.loading) {
