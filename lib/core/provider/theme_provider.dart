@@ -30,6 +30,7 @@ class ThemeProvider extends ChangeNotifier {
     final box = await Hive.openBox(boxName);
     final saved = box.get(keyThemeMode);
     if (saved != null) {
+      _useSystemTheme = false;
       _themeMode = ThemeMode.values[saved];
       notifyListeners();
     }
