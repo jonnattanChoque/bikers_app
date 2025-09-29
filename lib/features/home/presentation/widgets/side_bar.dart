@@ -2,6 +2,7 @@ import 'package:bikers_app/app_routes.dart';
 import 'package:bikers_app/core/i18n/strings.dart';
 import 'package:bikers_app/core/provider/theme_provider.dart';
 import 'package:bikers_app/features/auth/presentation/viewmodels/auth_viewmodel.dart';
+import 'package:bikers_app/features/home/presentation/viewmodels/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = context.watch<AuthViewModel>();
     final theme = context.watch<ThemeProvider>();
+    final homeVM = context.watch<HomeViewModel>();
     final String username = auth.user?.name ?? 'User';
 
     return Drawer(
@@ -50,7 +52,14 @@ class SideMenu extends StatelessWidget {
                 ? const Icon(Icons.nights_stay, color: Colors.grey)
                 : const Icon(Icons.wb_sunny, color: Colors.amber),
           ),
-
+          if (homeVM.hasBiometricHardware) ...[
+            SwitchListTile(
+              value: homeVM.biometricEnabled,
+              onChanged: (bool value) async => await homeVM.toggleBiometric(value),
+              title: Text(HomeStrings.sideBiometric),
+              secondary: const Icon(Icons.fingerprint, color: Colors.blueGrey),
+            ),
+          ],
           const Spacer(),
 
           // Logout

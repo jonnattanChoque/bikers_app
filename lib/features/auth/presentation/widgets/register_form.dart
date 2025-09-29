@@ -91,7 +91,9 @@ class _RegisterFormState extends State<RegisterForm> {
                     focusNode: _passwordFocus,
                     textInputAction: TextInputAction.done,
                     onSubmitted: (_) {
-                      vm.login(_emailCtrl.text, _passwordCtrl.text);
+                      vm.isLoading
+                      ? null
+                      : vm.register(_nameCtrl.text, _emailCtrl.text, _passwordCtrl.text);
                     },
                     style: TextStyle(color: Colors.primaries.first),
                     decoration: InputDecoration(

@@ -1,4 +1,11 @@
 
+import 'package:bikers_app/features/auth/domain/usecases/recovery_usecase.dart';
+import 'package:bikers_app/features/home/data/repositories/home_repository_impl.dart';
+import 'package:bikers_app/features/home/domain/usecases/get_biometric_availability_usecase.dart';
+import 'package:bikers_app/features/home/domain/usecases/get_biometric_preference_usecase.dart';
+import 'package:bikers_app/features/home/domain/usecases/set_biometric_preference_usecase.dart';
+import 'package:bikers_app/features/home/presentation/viewmodels/home_viewmodel.dart';
+import 'package:bikers_app/features/splash/domain/usecases/authenticate_with_biometric_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -34,9 +41,25 @@ void main() async {
   final registerUseCase = RegisterUseCase(authRepository);
   final logoutUseCase = LogoutUseCase(authRepository);
   final socialUserCase = SocialLoginUseCase(authRepository);
+  final recoveryUseCase = RecoveryUseCase(authRepository);
+
+  //Home
+  final homeRepository = BiometricRepositoryImpl(
+    localUserService: localUserService, 
+    biometricService: biometricService
+  );
+
+  final getAvailabilityUseCae = GetBiometricAvailabilityUseCase(homeRepository);
+  final getPreferenceUseCae = GetBiometricPreferenceUseCase(homeRepository);
+  final setPreferenceUseCae = SetBiometricPreferenceUseCase(homeRepository);
 
    // Splash
-  final splashRepository = SplashRepositoryImpl(authRepository);
+  final splashRepository = SplashRepositoryImpl(
+    authRepository: authRepository,
+    biometricService: biometricService
+  );
+
+  final authenticateWithBiometricUseCase = AuthenticateWithBiometricUseCase(splashRepository);
   
   runApp(
     MultiProvider(
@@ -48,11 +71,22 @@ void main() async {
             logoutUseCase: logoutUseCase, 
             googleLoginUseCase: socialUserCase, 
             appleLoginUseCase: socialUserCase,
+            recoveryUseCase: recoveryUseCase
           ),
         ),
         ChangeNotifierProvider(
           create: (context) => SplashViewModel(
-            checkLocalUserUseCase: CheckLocalUserUseCase(splashRepository, context.read<AuthViewModel>()),
+            checkLocalUserUseCase: CheckLocalUserUseCase(splashRepository, context.read<AuthViewModel>()), 
+            getBiometricAvailabilityUseCase: getAvailabilityUseCae, 
+            getBiometricPreferenceUseCase: getPreferenceUseCae, 
+            authenticateWithBiometricUseCase: authenticateWithBiometricUseCase,
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => HomeViewModel(
+            getAvailabilityUseCae: getAvailabilityUseCae, 
+            getPreferenceUseCae: getPreferenceUseCae, 
+            setPreferenceUseCae: setPreferenceUseCae
           ),
         ),
         ChangeNotifierProvider(

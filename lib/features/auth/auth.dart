@@ -1,6 +1,6 @@
 // features/auth/auth.dart
 // Data
-export 'data/services/firebase_auth_service.dart';
+export '../../core/services/biometric_service.dart';
 export 'data/repositories/auth_repository_impl.dart';
 
 // Domain
