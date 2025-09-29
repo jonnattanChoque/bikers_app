@@ -7,6 +7,7 @@ import 'package:bikers_app/core/i18n/strings.dart';
 import 'package:bikers_app/core/ui/viewmodels/view_message.dart';
 import 'package:bikers_app/core/ui/widgets/custom_bottom_sheet.dart';
 import 'package:bikers_app/core/ui/widgets/social_button.dart';
+import 'package:bikers_app/features/auth/presentation/widgets/forget_password_form.dart';
 import 'package:bikers_app/features/auth/presentation/widgets/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -97,7 +98,7 @@ class LoginPage extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerRight,
                             child: GestureDetector(
-                              //onTap: () => showForgotPasswordSheet(context),
+                              onTap: () => showCustomBottomSheet(context, const ForgetPasswordForm(), RecoveryStrings.title),
                               child: Text(
                                 LoginStrings.recoveryLink,
                                 style: Theme.of(context).textTheme.bodyMedium?.link,
@@ -143,7 +144,7 @@ class LoginPage extends StatelessWidget {
                             ),
                           const SizedBox(height: 24),
                           TextButton(
-                            onPressed: () => showCustomBottomSheet(context, const RegisterForm()),
+                            onPressed: () => showCustomBottomSheet(context, const RegisterForm(), RegisterStrings.title),
                             child: Text(LoginStrings.registerLink, style: Theme.of(context).textTheme.bodyLarge?.link),
                           ),
                         ],

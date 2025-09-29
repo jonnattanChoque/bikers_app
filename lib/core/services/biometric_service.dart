@@ -4,7 +4,7 @@ class BiometricService {
 
   static final LocalAuthentication _biometric = LocalAuthentication();
 
-  static Future<bool> isBiometricAvailable() async {
+  Future<bool> isBiometricAvailable() async {
     try {
       final bool canCheck = await _biometric.canCheckBiometrics;
       final bool isSupported = await _biometric.isDeviceSupported();
@@ -15,7 +15,7 @@ class BiometricService {
   }
 
   // Biometric Authentication
-  static Future<bool> authenticate() async {
+  Future<bool> authenticate() async {
     try {
       return await _biometric.authenticate(
         localizedReason: 'Authenticate to continue',

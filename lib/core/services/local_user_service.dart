@@ -4,6 +4,7 @@ import '../models/user_hive_model.dart';
 class LocalUserService {
   static const String _boxName = 'userBox';
   static const String _userKey = 'currentUser';
+  static const String _biometricKey = 'biometric_enabled';
 
   /// Guarda el usuario en Hive
   Future<void> saveUser(UserHiveModel user) async {
@@ -27,5 +28,15 @@ class LocalUserService {
   Future<bool> hasUser() async {
     final box = await Hive.openBox<UserHiveModel>(_boxName);
     return box.containsKey(_userKey);
+  }
+
+  Future<void> saveBiometricEnabled(bool enabled) async {
+    final box = await Hive.openBox('settings');
+    await box.put(_biometricKey, enabled);
+  }
+
+  Future<bool> isBiometricEnabled() async {
+    final box = await Hive.openBox('settings');
+    return box.get(_biometricKey, defaultValue: false);
   }
 }

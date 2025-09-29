@@ -1,6 +1,7 @@
 import 'package:bikers_app/core/i18n/strings.dart';
 import 'package:bikers_app/core/ui/helpers/custom_snackbar.dart';
 import 'package:bikers_app/core/ui/viewmodels/view_message.dart';
+import 'package:bikers_app/features/auth/domain/usecases/recovery_usecase.dart';
 import 'package:bikers_app/features/auth/domain/usecases/social_login_usercase.dart';
 import 'package:flutter/material.dart';
 import '../../domain/entities/auth_credentials.dart';
@@ -15,6 +16,7 @@ class AuthViewModel extends ChangeNotifier {
   final SocialLoginUseCase googleLoginUseCase;
   final SocialLoginUseCase appleLoginUseCase;
   final LogoutUseCase logoutUseCase;
+  final RecoveryUseCase recoveryUseCase;
 
   AuthViewModel({
     required this.loginUseCase,
@@ -22,6 +24,7 @@ class AuthViewModel extends ChangeNotifier {
     required this.googleLoginUseCase,
     required this.appleLoginUseCase,
     required this.logoutUseCase,
+    required this.recoveryUseCase
   });
 
   bool _isLoading = false;
@@ -155,6 +158,30 @@ class AuthViewModel extends ChangeNotifier {
         text: 'Error: ${e.toString()}',
         type: MessageType.error,
         icon: Icons.error,
+      ));
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // Logout
+  Future<void> forgetPassword(String email) async {
+    _setLoading(true);
+    try {
+      await recoveryUseCase.execute(email);
+      showMessage(ViewMessage(
+        text: RecoveryStrings.successEmail,
+        type: MessageType.success,
+        icon: Icons.check_circle,
+        flowType: MessageFlowType.forget
+      ));
+      notifyListeners();
+    } catch (e) {
+      showMessage(ViewMessage(
+        text: 'Error: ${e.toString()}',
+        type: MessageType.error,
+        icon: Icons.error,
+        flowType: MessageFlowType.forget
       ));
     } finally {
       _setLoading(false);

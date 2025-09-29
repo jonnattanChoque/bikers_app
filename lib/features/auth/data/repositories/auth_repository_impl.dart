@@ -1,7 +1,7 @@
 import 'package:bikers_app/core/models/user_hive_model.dart';
 import 'package:bikers_app/core/services/firebase_auth_service.dart';
 import 'package:bikers_app/core/services/local_user_service.dart';
-import 'package:bikers_app/features/auth/data/services/firebase_auth_service.dart';
+import 'package:bikers_app/core/services/biometric_service.dart';
 
 import '../../domain/entities/user.dart';
 import '../../domain/entities/auth_credentials.dart';
@@ -85,6 +85,15 @@ class AuthRepositoryImpl implements AuthRepository {
       await localService.saveUser(userHive);
 
       return userModel;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> recoveryPassword(String email) async {
+    try {
+      await firebaseAuthService.sendPasswordResetEmail(email);
     } catch (e) {
       rethrow;
     }
