@@ -1,10 +1,16 @@
 
+import 'package:bikers_app/core/services/firebase_user_service.dart';
 import 'package:bikers_app/features/auth/domain/usecases/recovery_usecase.dart';
 import 'package:bikers_app/features/home/data/repositories/home_repository_impl.dart';
 import 'package:bikers_app/features/home/domain/usecases/get_biometric_availability_usecase.dart';
 import 'package:bikers_app/features/home/domain/usecases/get_biometric_preference_usecase.dart';
 import 'package:bikers_app/features/home/domain/usecases/set_biometric_preference_usecase.dart';
 import 'package:bikers_app/features/home/presentation/viewmodels/home_viewmodel.dart';
+import 'package:bikers_app/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:bikers_app/features/profile/domain/usecases/add_bike_usecase.dart';
+import 'package:bikers_app/features/profile/domain/usecases/get_bike_usecase.dart';
+import 'package:bikers_app/features/profile/domain/usecases/update_username_usecase.dart';
+import 'package:bikers_app/features/profile/presentation/viewmodels/profile_viewmodel.dart';
 import 'package:bikers_app/features/splash/domain/usecases/authenticate_with_biometric_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,6 +33,7 @@ void main() async {
   Hive.registerAdapter(UserHiveModelAdapter());
   
   final firebaseService = FirebaseAuthService();
+  final firebaseUserService = FirebaseUserService();
   final localUserService = LocalUserService();
   final biometricService = BiometricService();
   
@@ -60,6 +67,15 @@ void main() async {
   );
 
   final authenticateWithBiometricUseCase = AuthenticateWithBiometricUseCase(splashRepository);
+
+  // Profile
+  final profileRepository = ProfileRepositoryImpl(
+    firebaseUserService: firebaseUserService, 
+    localUserservice: localUserService
+  );
+  final updateUsername = UpdateUsernameUsecase(profileRepository);
+  final addBikeUseCase = AddBikeUsecase(profileRepository);
+  final getBikesUseCase = GetBikesUsecase(profileRepository);
   
   runApp(
     MultiProvider(
@@ -88,6 +104,22 @@ void main() async {
             getPreferenceUseCae: getPreferenceUseCae, 
             setPreferenceUseCae: setPreferenceUseCae
           ),
+        ),
+        ChangeNotifierProxyProvider<AuthViewModel, ProfileViewModel>(
+          create: (_) => ProfileViewModel(
+            updateUsername: updateUsername,
+            addBike: addBikeUseCase, 
+            getBikes: getBikesUseCase,
+            user: null
+          ),
+          update: (context, authVM, _) {
+            return ProfileViewModel(
+              updateUsername: updateUsername,
+              addBike: addBikeUseCase, 
+              getBikes: getBikesUseCase,
+              user: authVM.user
+            );
+          },
         ),
         ChangeNotifierProvider(
           create: (_) => ThemeProvider(),

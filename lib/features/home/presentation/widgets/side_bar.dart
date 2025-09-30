@@ -42,8 +42,13 @@ class SideMenu extends StatelessWidget {
               ],
             ),
           ),
-
-          // Cambiar tema
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: Text(ProfileStrings.bottomTitle),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, AppRoutes.profile);
+            },
+          ),
           SwitchListTile(
             value: ThemeMode.dark == theme.themeMode,
             onChanged: (_) => theme.toggleTheme(),
@@ -61,8 +66,6 @@ class SideMenu extends StatelessWidget {
             ),
           ],
           const Spacer(),
-
-          // Logout
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: Text(HomeStrings.sideLogout),

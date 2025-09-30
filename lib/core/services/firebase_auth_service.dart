@@ -25,20 +25,6 @@ class FirebaseAuthService {
     }
     return null;
   }
-
-  getUserFirestore() async {
-    final doc = await _firestore.collection('users').doc(currentUser?.uid).get();
-    if (doc.exists) {
-    final data = doc.data()!;
-      return {
-        'uid': doc.id,
-        ...data,
-      };
-    }
-
-    return null;
-  }
-
   // Registro con email y password
   Future<User?> registerWithEmail(String username,String email, String password) async {
     try {
