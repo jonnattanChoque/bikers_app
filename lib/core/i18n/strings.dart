@@ -53,7 +53,12 @@ class Strings {
       "home_title": "Home",
       "home_toggle_theme": "Toggle Theme",
       "home_logout": "Logout",
-      "home_side_biometric": "Use biometrics"
+      "home_side_biometric": "Use biometrics",
+
+      // Profile Page
+      "profile_bottom_title": "Profile 👤",
+      "profile_title": "Perfil",
+      "profile_update_username": "Nombre actulalizado",
     },
     "es": {
       // Login Page
@@ -94,7 +99,12 @@ class Strings {
       "home_title": "Inicio",
       "home_toggle_theme": "Cambiar tema",
       "home_logout": "Cerrar sesión",
-      "home_side_biometric": "Usar biometría"
+      "home_side_biometric": "Usar biometría",
+
+      // Profile Page
+      "profile_bottom_title": "perfil 👤",
+      "profile_title": "Profile",
+      "profile_update_username": "Username updated",
     }
   };
 
@@ -148,3 +158,10 @@ class HomeStrings {
   static String get sideLogout => Strings.of("home_logout");
   static String get sideBiometric => Strings.of("home_side_biometric");
 }
+
+class ProfileStrings {
+  static String get bottomTitle => Strings.of("profile_bottom_title");
+  static String get title => Strings.of("profile_title");
+  static String get updateUsername => Strings.of("profile_update_username");
+}
+

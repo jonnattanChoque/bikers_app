@@ -26,18 +26,17 @@ class SplashViewModel extends ChangeNotifier {
     final User? user = await checkLocalUserUseCase();
     if (user != null) {
       _state = SplashState.authenticated;
+      final hasHardware = await getBiometricAvailabilityUseCase.execute();
+      final prefEnabled = await getBiometricPreferenceUseCase.execute();
+
+      if (hasHardware && prefEnabled) {
+        final success = await authenticateWithBiometricUseCase.execute();
+        if (!success) {
+          _state = SplashState.unauthenticated;
+        }
+      }
     } else {
       _state = SplashState.unauthenticated;
-    }
-
-    final hasHardware = await getBiometricAvailabilityUseCase.execute();
-    final prefEnabled = await getBiometricPreferenceUseCase.execute();
-
-    if (hasHardware && prefEnabled) {
-      final success = await authenticateWithBiometricUseCase.execute();
-      if (!success && user != null) {
-        _state = SplashState.unauthenticated;
-      }
     }
 
     notifyListeners();
