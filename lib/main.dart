@@ -1,4 +1,6 @@
 
+import 'package:bikers_app/core/i18n/strings.dart';
+import 'package:bikers_app/core/provider/language_provider.dart';
 import 'package:bikers_app/core/services/firebase_user_service.dart';
 import 'package:bikers_app/features/auth/domain/usecases/recovery_usecase.dart';
 import 'package:bikers_app/features/home/data/repositories/home_repository_impl.dart';
@@ -77,6 +79,9 @@ void main() async {
   final updateUsername = UpdateUsernameUsecase(profileRepository);
   final addBikeUseCase = AddBikeUsecase(profileRepository);
   final getBikesUseCase = GetBikesUsecase(profileRepository);
+
+  final languageProvider = LanguageProvider();
+  Global.setLanguageVM(languageProvider);
   
   runApp(
     MultiProvider(
@@ -84,6 +89,7 @@ void main() async {
         ChangeNotifierProvider(
           create:(context) => MainViewModel(),
         ),
+        ChangeNotifierProvider<LanguageProvider>.value(value: languageProvider),
         ChangeNotifierProvider(
           create: (_) => AuthViewModel(
             loginUseCase: loginUseCase,

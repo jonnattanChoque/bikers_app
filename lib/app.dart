@@ -14,14 +14,28 @@ class AppSession {
   static bool isBiometricValidated = false;
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int _appKey = 0;
+
+  void _reloadApp() {
+    setState(() {
+      _appKey++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return MaterialApp(
+      key: ValueKey(_appKey),
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       title: 'BikerApp',
       debugShowCheckedModeBanner: false,
@@ -34,7 +48,7 @@ class MyApp extends StatelessWidget {
           ? AppRoutes.main
           : AppRoutes.splash,
       routes: {
-        AppRoutes.main: (_) => const MainPage(),
+        AppRoutes.main: (_) => MainPage(onLanguageChanged: _reloadApp),
         AppRoutes.splash: (_) => const SplashPage(),
         AppRoutes.home: (_) => const HomePage(),
         AppRoutes.login: (_) => LoginPage(),
