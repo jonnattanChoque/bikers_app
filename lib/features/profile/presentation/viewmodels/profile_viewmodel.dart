@@ -6,7 +6,6 @@ import 'package:bikers_app/features/profile/domain/entities/vehicle_model.dart';
 import 'package:bikers_app/features/profile/domain/usecases/add_bike_usecase.dart';
 import 'package:bikers_app/features/profile/domain/usecases/get_bike_usecase.dart';
 import 'package:bikers_app/features/profile/domain/usecases/update_username_usecase.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ProfileViewModel extends ChangeNotifier {
