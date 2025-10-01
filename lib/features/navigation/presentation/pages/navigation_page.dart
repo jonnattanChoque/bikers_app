@@ -12,7 +12,6 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPage extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
-    // NO volvemos a crear MainViewModel aquí
     final viewModel = Provider.of<MainViewModel>(context); 
 
     return Scaffold(

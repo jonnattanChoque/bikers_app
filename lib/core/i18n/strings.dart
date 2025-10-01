@@ -1,14 +1,14 @@
-import 'dart:ui' as ui;
+import 'package:bikers_app/core/provider/language_provider.dart';
 
 class Global {
   static String get currentLanguage {
-    try {
-      // ignore: deprecated_member_use
-      return ui.window.locale.languageCode;
-    } catch (_) {
-      // fallback
-      return 'es';
-    }
+    return _languageVM?.language ?? 'es';
+  }
+
+  static LanguageProvider? _languageVM;
+
+  static void setLanguageVM(LanguageProvider vm) {
+    _languageVM = vm;
   }
 }
 
@@ -49,16 +49,21 @@ class Strings {
       "login_success_email": "Password reset email sent if exist email. Check your spam folder.",
       "login_recovery_button": "Send email",
 
-      // Home Page
-      "home_title": "Home",
-      "home_toggle_theme": "Toggle Theme",
-      "home_logout": "Logout",
-      "home_side_biometric": "Use biometrics",
+      // Main Navigation
+      "navigation_bottom_title": "Navigation",
+      "profile_bottom_title": "Profile",
+      "home_bottom_title": "home",
+      "settings_bottom_title": "Settings",
+
+      // Settings Page
+      "settings_title": "Settings",
+      "settings_toggle_theme": "Toggle Theme",
+      "settings_logout": "Logout",
+      "settings_side_biometric": "Use biometrics",
 
       // Profile Page
-      "profile_bottom_title": "Profile 👤",
-      "profile_title": "Perfil",
-      "profile_update_username": "Nombre actulalizado",
+      "profile_title": "Profile",
+      "profile_update_username": "Username updated",
     },
     "es": {
       // Login Page
@@ -95,16 +100,21 @@ class Strings {
       "login_success_email": "Email de recuperación enviado si el correo existe. Revisa tu spam.",
       "login_recovery_button": "Enviar correo",
 
-      // Home Page
-      "home_title": "Inicio",
-      "home_toggle_theme": "Cambiar tema",
-      "home_logout": "Cerrar sesión",
-      "home_side_biometric": "Usar biometría",
+      // Main Navigation
+      "navigation_bottom_title": "Navegación",
+      "profile_bottom_title": "Perfil",
+      "home_bottom_title": "Inicio",
+      "settings_bottom_title": "Configuración",
+
+      // Settings Page
+      "settings_title": "Configuración",
+      "settings_toggle_theme": "Cambiar tema",
+      "settings_logout": "Cerrar sesión",
+      "settings_side_biometric": "Usar biometría",
 
       // Profile Page
-      "profile_bottom_title": "perfil 👤",
-      "profile_title": "Profile",
-      "profile_update_username": "Username updated",
+      "profile_title": "Perfil",
+      "profile_update_username": "Nombre actualizado",
     }
   };
 
@@ -152,11 +162,18 @@ class RecoveryStrings {
   static String get successEmail => Strings.of("login_success_email");
 }
 
-class HomeStrings {
-  static String get title => Strings.of("home_title");
-  static String get sideToggleTheme => Strings.of("home_toggle_theme");
-  static String get sideLogout => Strings.of("home_logout");
-  static String get sideBiometric => Strings.of("home_side_biometric");
+class MainStrings {
+  static String get navigationTitle => Strings.of("navigation_bottom_title");
+  static String get profileTitle => Strings.of("profile_bottom_title");
+  static String get homeTitle => Strings.of("home_bottom_title");
+  static String get settingsTitle => Strings.of("settings_bottom_title");
+}
+
+class SettingsStrings {
+  static String get title => Strings.of("settings_title");
+  static String get toggleTheme => Strings.of("settings_toggle_theme");
+  static String get toggleBiometric => Strings.of("settings_side_biometric");
+  static String get logout => Strings.of("settings_logout");
 }
 
 class ProfileStrings {

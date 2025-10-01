@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:bikers_app/core/i18n/strings.dart';
 import 'package:bikers_app/main/domain/viewmodels/main_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,10 +41,10 @@ class CollapsibleBottomNav extends StatelessWidget {
             child: BottomNavigationBar(
               currentIndex: currentIndex,
               onTap: onTap,
-              items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Navigation'),
-                BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Amigos'),
-                BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
+              items: [
+                BottomNavigationBarItem(icon: Icon(Icons.map), label: MainStrings.navigationTitle),
+                BottomNavigationBarItem(icon: Icon(Icons.person), label: MainStrings.profileTitle),
+                BottomNavigationBarItem(icon: Icon(Icons.settings), label: MainStrings.settingsTitle),
               ],
             ),
           ),
