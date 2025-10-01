@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (auth.state == SplashState.authenticated) {
               AppSession.isBiometricValidated = true; 
-              Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+              Navigator.of(context).pushReplacementNamed(AppRoutes.main);
             } else {
               Navigator.of(context).pushReplacementNamed(AppRoutes.login);
             }

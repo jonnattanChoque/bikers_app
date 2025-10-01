@@ -1,6 +1,5 @@
 import 'package:bikers_app/core/core.dart';
 import 'package:bikers_app/core/services/firebase_user_service.dart';
-import 'package:bikers_app/features/auth/data/models/user_model.dart';
 import 'package:bikers_app/features/profile/domain/entities/vehicle_model.dart';
 import 'package:bikers_app/features/profile/domain/repository/profile_repository.dart';
 

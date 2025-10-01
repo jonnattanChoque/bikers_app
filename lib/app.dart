@@ -1,3 +1,4 @@
+import 'package:bikers_app/main/presentation/pages/main_page.dart';
 import 'package:bikers_app/app_routes.dart';
 import 'package:bikers_app/core/theme/app_themes.dart';
 import 'package:bikers_app/features/home/presentation/pages/home_page.dart';
@@ -30,9 +31,10 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       initialRoute: AppSession.isBiometricValidated
-          ? AppRoutes.home
+          ? AppRoutes.main
           : AppRoutes.splash,
       routes: {
+        AppRoutes.main: (_) => const MainPage(),
         AppRoutes.splash: (_) => const SplashPage(),
         AppRoutes.home: (_) => const HomePage(),
         AppRoutes.login: (_) => LoginPage(),

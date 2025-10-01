@@ -39,7 +39,7 @@ class LoginPage extends StatelessWidget {
                 top: false
               );
               if (vm.message!.type == MessageType.success) {
-                Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+                Navigator.of(context).pushReplacementNamed(AppRoutes.main);
               }
               vm.clearMessage();
             }

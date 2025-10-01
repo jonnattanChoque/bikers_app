@@ -12,6 +12,7 @@ import 'package:bikers_app/features/profile/domain/usecases/get_bike_usecase.dar
 import 'package:bikers_app/features/profile/domain/usecases/update_username_usecase.dart';
 import 'package:bikers_app/features/profile/presentation/viewmodels/profile_viewmodel.dart';
 import 'package:bikers_app/features/splash/domain/usecases/authenticate_with_biometric_usecase.dart';
+import 'package:bikers_app/main/domain/viewmodels/main_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -80,6 +81,9 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create:(context) => MainViewModel(),
+        ),
         ChangeNotifierProvider(
           create: (_) => AuthViewModel(
             loginUseCase: loginUseCase,
