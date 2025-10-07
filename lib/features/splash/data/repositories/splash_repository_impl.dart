@@ -1,3 +1,4 @@
+import 'package:bikers_app/core/core.dart';
 import 'package:bikers_app/core/services/biometric_service.dart';
 import 'package:bikers_app/features/auth/domain/entities/user.dart';
 import 'package:bikers_app/features/splash/domain/repositories/splash_repository.dart';
@@ -6,17 +7,22 @@ import 'package:bikers_app/features/auth/domain/repositories/auth_repository.dar
 class SplashRepositoryImpl implements SplashRepository {
   final AuthRepository _authRepository;
   final BiometricService _biometricService;
+  final FirebaseAuthService _firebaseService;
 
   SplashRepositoryImpl({
     required AuthRepository authRepository,
     required BiometricService biometricService,
+    required FirebaseAuthService firebaseService,
   })  : 
       _authRepository = authRepository,
-      _biometricService = biometricService;
+      _biometricService = biometricService, 
+      _firebaseService = firebaseService;
 
   @override
   Future<User?> execute() async {
-    return await _authRepository.getLocalUser();
+    final user = await _authRepository.getLocalUser();
+    final isValid = await _firebaseService.validateUserSession(user?.id ?? "");
+    return isValid ? user : null;
   }
   
   @override

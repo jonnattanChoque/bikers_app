@@ -134,6 +134,7 @@ class AuthViewModel extends ChangeNotifier {
         text: 'Error: ${e.toString()}',
         type: MessageType.error,
         icon: Icons.error,
+        flowType: MessageFlowType.login
       ));
     } finally {
       _setLoading(false);
