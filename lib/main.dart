@@ -66,7 +66,8 @@ void main() async {
    // Splash
   final splashRepository = SplashRepositoryImpl(
     authRepository: authRepository,
-    biometricService: biometricService
+    biometricService: biometricService, 
+    firebaseService: firebaseService
   );
 
   final authenticateWithBiometricUseCase = AuthenticateWithBiometricUseCase(splashRepository);
